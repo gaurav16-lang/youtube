@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKkoj7YY5ELA5BBmhT96zPEMHmwmKTAKgvqw&usqp=CAU" type="image/icon type">
+    <style>
+        * {
+            margin-left: 0px;
+            margin-right: 1px;
+            margin-top: 0px;
+        }
+        
+        body {
+            background-color: #181818;
+        }
+        
+        #videos {
+            display: grid;
+            grid-template-columns: repeat(4, 20%);
+            grid-gap: 5%;
+        }
+        
+        .navbar {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 20px;
+            display: flex;
+        }
+        
+        .int-1 {}
+        
+        input {
+            width: 50%;
+            outline: none;
+            font-size: 24px;
+            border: green;
+            background-color: hsl(0, 0%, 7%);
+            margin-left: 200px;
+            caret-color: red;
+            color: white;
+        }
+        
+        .log {
+            width: 80px;
+            margin-left: 50px;
+            margin-top: 20px;
+        }
+        
+        .logoi {
+            max-width: 50%;
+        }
+        
+        iframe {
+            border: 1em solid #181818;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn {
+            background-color: #DC2626;
+            color: white;
+            outline: #DC2626;
+            margin-top: 10px;
+        }
+        
+        .int-1 {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="log">
+            <img src="https://cdn.pixabay.com/photo/2016/11/19/03/08/youtube-1837872__480.png" alt="" class="logoi">
+        </div>
+        <input type="text" id="query" placeholder="Search for a Video" class="int-1" />
+
+        <button onclick="searchVideos()" class="btn">Search</button>
+    </div>
+
+
+    <div id="videos"></div>
+</body>
+
+</html>
+
+<script>
+    let videos = document.getElementById("videos")
+    async function searchVideos() {
+        // q-csk
+        // type-videos
+        // apikey
+        let query = document.getElementById("query").value;
+        let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${query}&topicDetails&fileDetails&type=video&key=AIzaSyC9_S4dRXQLMEY_wX9dghRACPi3yTQnUeY&maxResults=20`);
+
+
+
+        let data = await res.json()
+        console.log(data);
+        appendVideos(data.items)
+    }
+
+
+
+    function appendVideos(video_data) {
+        videos.innerHTML = null;
+
+        video_data.forEach(({
+            id: {
+                videoId
+            }
+        }) => {
+            console.log("video", videoId)
+            let div = document.createElement("div");
+            // embed yt video on our app
+            div.innerHTML = `<iframe width="360" height="215" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+            div.style.marginTop = "20px"
+            videos.append(div);
+        })
+    }
+    async function showVideos() {
+
+        let videos = document.getElementById('videos');
+        let res = await fetch(` https://youtube.googleapis.com/youtube/v3/videos?q=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&key=AIzaSyC9_S4dRXQLMEY_wX9dghRACPi3yTQnUeY&regionCode=IN&maxResults=20`);
+        let data = await res.json();
+        for (video of data.items) {
+            let div_data = document.createElement('iframe');
+            div_data.src = `https://www.youtube.com/embed/${video.id}`;
+            div_data.width = `360`;
+            div_data.height = `215`
+            div_data.allow = `fullscreen`;
+            div_data.style.marginTop = "0px"
+
+
+            videos.append(div_data);
+        }
+    }
+    showVideos();
+</script>
+
+<!-- 
+   https://youtube.googleapis.com/youtube/v3/search?q=${query}&topicDetails&fileDetails&type=video&key=AIzaSyC9_S4dRXQLMEY_wX9dghRACPi3yTQnUeY
+
+ -->
+<!-- "https://youtube.googleapis.com/youtube/v3/search?part=snippet&location=21.5922529%2C-158.1147114&locationRadius=10mi&maxResults=20&q=surfing&type=video&key=AIzaSyC9_S4dRXQLMEY_wX9dghRACPi3yTQnUeY"
+ -->
+<!-- GET https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=chartUnspecified&maxResults=20&regionCode=In&key=[YOUR_API_KEY] HTTP/1.1
+
+ Authorization: Bearer [YOUR_ACCESS_TOKEN]
+ Accept: application/json -->
+
+
+<!--  
+GET https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=30&regionCode=In&key=AIzaSyC9_S4dRXQLMEY_wX9dghRACPi3yTQnUeY
+
+Accept: application/json
+
+
+Authorization: Bearer [YOUR_ACCESS_TOKEN]
+Accept: application/json
+
+GET "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=20&regionCode=In&key=AIzaSyC9_S4dRXQLMEY_wX9dghRACPi3yTQnUeY"
+
+Accept: application/json
+GET "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=In&key=AIzaSyC9_S4dRXQLMEY_wX9dghRACPi3yTQnUeY"
+
+Authorization: Bearer [YOUR_ACCESS_TOKEN]
+Accept: application/json
+
+ -->
