@@ -6,37 +6,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>YouTube</title>
-    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKkoj7YY5ELA5BBmhT96zPEMHmwmKTAKgvqw&usqp=CAU" type="image/icon type">
+    <link rel="icon" href="https://img.icons8.com/color/2x/youtube-play.png" type="image/icon type">
     <style>
         * {
-            margin-left: 0px;
-            margin-right: 1px;
-            margin-top: 0px;
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        
+        *:focus {
+            outline: none;
         }
         
         body {
+            position: relative;
             background-color: #181818;
-        }
-        
-        #videos {
-            display: grid;
-            grid-template-columns: repeat(4, 20%);
-            grid-gap: 5%;
+            font-family: Roboto, Arial, sans-serif;
         }
         
         .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 50px;
-            margin-bottom: 20px;
+            height: 60px;
+            align-items: center;
+            /* this is used to align iteam center*/
             display: flex;
+            background: transparent;
+            background-color: #424242;
+            ;
         }
         
-        .int-1 {}
+        .taggle-btn {
+            background-color: white;
+            position: relative;
+            width: 30px;
+            height: 10px;
+            cursor: pointer;
+            left: 1%;
+            margin-top: 15px;
+        }
+        
+        .taggle-btn span {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #979797;
+        }
+        
+        .taggle-btn:nth-child(1) {
+            top: 0;
+        }
+        
+        .taggle-btn:nth-child(2) {
+            top: 20%;
+            bottom: 10%;
+        }
+        
+        .taggle-btn:nth-child(3) {
+            top: 100%;
+        }
         
         input {
             width: 50%;
             outline: none;
-            font-size: 24px;
+            font-size: 18px;
             border: green;
             background-color: hsl(0, 0%, 7%);
             margin-left: 200px;
@@ -51,7 +88,7 @@
         }
         
         .logoi {
-            max-width: 50%;
+            max-width: 100%;
         }
         
         iframe {
@@ -70,26 +107,170 @@
         .int-1 {
             margin-top: 10px;
         }
+        
+        .search-box {
+            position: relative;
+            max-width: 900px;
+            width: 50%;
+            height: 35px;
+            display: flex;
+            margin-left: 60px;
+        }
+        
+        .useroption {
+            width: 50px;
+            align-items: center;
+            display: flex;
+            margin-left: 300px;
+        }
+        
+        .videoicon {
+            width: 40px;
+            margin-top: 10px;
+            align-items: center;
+        }
+        
+        .videoicon2 {
+            margin-left: 30px;
+            width: 30px;
+            margin-top: 10px;
+        }
+        
+        .videoicon3 {
+            margin-left: 30px;
+            width: 30px;
+            margin-top: 10px;
+        }
+        
+        .userdp {
+            width: 30px;
+            margin-left: 20px;
+            height: 30px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: white;
+            border: 1px solid white;
+        }
+        
+        .userdpimg {
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .side-bar {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #424242;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .seprator {
+            width: 90%;
+            background-color: rgb(37, 37, 37);
+        }
+        
+        .link {
+            display: block;
+            text-decoration: none;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        
+        .side-bar img {
+            width: 20%;
+            margin-right: 10px;
+        }
+        
+        .link:hover {
+            background-color: #717171;
+        }
+        
+        .seprator {
+            margin-top: 20px;
+        }
+        
+        .video-container {
+            width: calc(100%-250px);
+            margin-top: 120px;
+            margin-left: 250px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 25%);
+            grid-gap: 20px 5px;
+            overflow-x: hidden;
+            background-color: #181818;
+        }
     </style>
 </head>
+<!-- #717171 -->
 
 <body>
     <div class="navbar">
-        <div class="log">
-            <img src="https://cdn.pixabay.com/photo/2016/11/19/03/08/youtube-1837872__480.png" alt="" class="logoi">
-        </div>
-        <input type="text" id="query" placeholder="Search for a Video" class="int-1" />
+        <div class="taggle-btn" onclick="reduce()">
 
-        <button onclick="searchVideos()" class="btn">Search</button>
+            <span></span>
+            <span></span>
+
+            <span></span>
+
+        </div>
+        <div class="log">
+            <div class="login">
+
+            </div>
+            <img src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Logo.png" alt="" class="logoi">
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="query" placeholder="Search for a Video" class="int-1" />
+
+            <button onclick="searchVideos()" class="btn">search</button>
+        </div>
+        <div class="useroption">
+            <img src="https://cdn0.iconfinder.com/data/icons/ui-pt-2-thin/100/088_-_video-128.png" alt="" class="videoicon">
+            <img src="https://img.icons8.com/ios-filled/2x/grid.png" alt="" class="videoicon2">
+            <img src="https://img.icons8.com/material-rounded/344/bell.png" alt="" class="videoicon3">
+            <div class="userdp" onclick="signup()">
+                <img src="https://img.icons8.com/ios-glyphs/2x/contract-job.png" alt="" class="userdpimg">
+            </div>
+        </div>
+
+
     </div>
 
+    <div class="side-bar" id="barside">
+        <a href="#" class="link"><img src="https://img.icons8.com/material-outlined/2x/home--v2.png" alt="">HOME</a>
+        <a href="#" class="link"><img src="https://img.icons8.com/material-rounded/2x/compass.png" alt="">HOME</a>
+        <a href="#" class="link"><img src="https://img.icons8.com/ios/2x/cancel-subscription.png" alt="">HOME</a>
 
-    <div id="videos"></div>
+        <hr class="seprator">
+
+
+        <a href="#" class="link"><img src="https://img.icons8.com/material-outlined/2x/home--v2.png" alt="">HOME</a>
+        <a href="#" class="link"><img src="https://img.icons8.com/material-outlined/2x/home--v2.png" alt="">HOME</a>
+        <a href="#" class="link"><img src="https://img.icons8.com/material-outlined/2x/home--v2.png" alt="">HOME</a>
+        <a href="#" class="link"><img src="https://img.icons8.com/material-outlined/2x/home--v2.png" alt="">HOME</a>
+        <a href="#" class="link"><img src="https://img.icons8.com/material-outlined/2x/home--v2.png" alt="">HOME</a>
+        <a href="#" class="link"><img src="https://img.icons8.com/material-outlined/2x/home--v2.png" alt="">HOME</a>
+    </div>
+
+    <div id="videos" class="video-container"></div>
 </body>
 
 </html>
 
 <script>
+    let te = document.getElementById("barside");
     let videos = document.getElementById("videos")
     async function searchVideos() {
         // q-csk
@@ -118,7 +299,7 @@
             console.log("video", videoId)
             let div = document.createElement("div");
             // embed yt video on our app
-            div.innerHTML = `<iframe width="360" height="215" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+            div.innerHTML = `<iframe width="300" height="215" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
             div.style.marginTop = "20px"
             videos.append(div);
         })
@@ -131,7 +312,7 @@
         for (video of data.items) {
             let div_data = document.createElement('iframe');
             div_data.src = `https://www.youtube.com/embed/${video.id}`;
-            div_data.width = `360`;
+            div_data.width = `300`;
             div_data.height = `215`
             div_data.allow = `fullscreen`;
             div_data.style.marginTop = "0px"
@@ -141,6 +322,14 @@
         }
     }
     showVideos();
+
+    function signup() {
+        window.location.href = "signup.html"
+    }
+
+    function reduce() {
+        te.style.visibility = "hidden";
+    }
 </script>
 
 <!-- 
